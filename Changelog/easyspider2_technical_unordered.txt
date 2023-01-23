@@ -1,0 +1,397 @@
+#########################################################
+
+N(x,y)= ??
+x=physische faktor; y= mentale energie
+Leben ist Materie plus Energie
+LEBEN (Materie, Energie) = ???
+
+http://www.adorare.de/gottexistiert.html
+
+##############################
+
+"Im unbegreiflichen Weltall offenbart sich eine grenzenlos überlegene Vernunft." Albert Einstein, Nobelpreisträger
+
+
+- auswertung der http-status codes
+- wenn content_lenght > 50000 bytes dann streamreader, sonst normal holen
+- slow mode: streamreader / normal $res = $request->content(); / fast: cache $res=request->content;
+
+###############################################
+
+mime decode base64 : http://search.cpan.org/~dskoll/MIME-tools-5.419/lib/MIME/Decoder.pm
+http://www.elektronik-kompendium.de/sites/net/0906211.htm
+http://www.webmaster-toolkit.com/mime-types.shtml
+http://de.selfhtml.org/diverses/mimetypen.htm
+
+###########################
+
+package Book::Buffer;
+my $buffer;
+
+$html_doc_lenght = $res->content_lenght();
+
+sub prealloc { $buffer = '' x $html_doc_lenght; $buffer = ""; 0; }
+
+sub prealloc { $buffer = ' ' x 100_000; $buffer = ""; 0; }
+
+
+################################################
+
+
+fork(){
+ fork immer bei neuem prozess am anfang initialisieren, da bei einem fork() der komplette vaterprozess abgespaltet und neu erzeugt wird, wenn man also einen 50mb prozess dubliziert werden 100mb drauß )
+}
+
+defined (my $kid = fork) or die "Cannot fork: $!\n";
+if ($kid) {
+        # Parent runs this block
+}
+else {
+               # Child runs this block
+              # some code comes here
+            CORE::exit(0);
+}
+
+# possibly more code here usually run by the parent
+
+This forked process will be aborted, because when the parent process dies during the restart, it will kill its child processes as well. In order to avoid this, we need to detach the process from its parent session by opening a new session with help of a setsid( ) system call (provided by the POSIX module):
+
+use POSIX 'setsid';
+defined (my $kid = fork) or die "Cannot fork: $!\n";
+if ($kid) {
+   # Parent runs this block
+}
+else {
+    # Child runs this block
+     setsid or die "Can't start a new session: $!";
+    # code im child ausgeführt
+}
+
+Now the spawned child process has a life of its own, and it doesn't depend on the parent any more.
+
+############## bestes codekonstrukt für das fork():
+
+use strict;
+use POSIX 'setsid'; # mache, das ein childprozess unabhängig vom parent prozess läuft, # #      sprich wenn der parent stirbt, dann überlebt das child weiter
+
+$SIG{CHLD} = 'IGNORE'; # verhindere die entstehung von zombies
+defined (my $kid = fork) or die "Cannot fork: $!\n";
+
+if ($kid) {
+        print "Parent $$ has finished, kid's PID: $kid\n";
+} else {
+         &eanup_for_exec($parent_socket ); # untie the socket
+         chdir '/' or die "Can't chdir to /: $!";
+         open STDIN, '/dev/null' or die "Can't read /dev/null: $!";
+         open STDOUT, '>/dev/null' or die "Can't write to /dev/null: $!";
+         open STDERR, '>/tmp/log' or die "Can't write to /tmp/log: $!";
+         setsid or die "Can't start a new session: $!";
+         my $oldfh = select STDERR;
+         local $| = 1;   # unbuffer the STDERR stream, nur in diesem anweisungsblock
+         select $oldfh;
+         warn "started\n";
+         # do something time-consuming
+         sleep 1, warn "$_\n" for 1..20;
+         warn "completed\n";
+         CORE::exit(0); # terminate the process
+}
+
+#######################################
+
+###############
+
+unless defined @links {
+
+
+#    for ($i=0;$i<=MAX_HTTP_THREADS;$++){
+    for ($i=0; $i<= MAX_HTT_THREAD - %thread{'count'}; $++){
+        my $link = shift @links;
+        worker($link);    # subroutine
+        # markiere falg, dass ein thread am laufen ist
+        %threads{'working'} = \$worker($link);
+        %threads{'count'}     =  %threads{'count'} + 1 ;
+    };
+ 
+
+programm, das automatisch emails abholt von freemailanbietern -> realisierung
+programm, das freesms verschickt -> realisierung
+
+
+sub _insertDataintoDB() {
+    my $data = shift;
+    DBI->füge die daten aus der hashreferenz $data in die zugehörige db und tabelle ein
+    return OK ? $!;    # 1 für ok , fehlermeldung, wenn nicht ok
+}
+
+
+$uri =~ s|^/perl/|/home/httpd/perl/|;
+
+
+Apache::DBI module to get persistent database connection
+
+Apache::DBI->connect_on_init('DBI:mysql:test::localhost', "", "",
+{
+PrintError => 1, # warn( ) on errors
+RaiseError => 0, # don't die on error
+AutoCommit => 1, # commit executes
+# immediately
+}
+) or die "Cannot connect to database: $DBI::errstr";
+
+
+- traverse all folders recursivly { use File::Find qw(finddepth); } and print the the content of the file
+    - option: print it compressed / uncompressed / encrypted / unencrypted
+
+
+- http requests via streamhandle lesen und schreiben und keepalive requests
+ http://search.cpan.org/src/PSIONIC/HTTP-Handle-0.2/Handle.pm
+ http://search.cpan.org/~gaas/LWP-attic-1.00/lib/LWP/SecureSocket.pm
+ http://search.cpan.org/~ysas/SWF-File-0.41/lib/SWF/BinStream.pm
+ http://search.cpan.org/~rhooper/HTTP-Lite-2.1.6/Lite.pm
+
+http://search.cpan.org/author/REATMON/XML-Stream-1.22/lib/XML/Stream/Parser.pm
+http://search.cpan.org/~book/HTTP-Proxy-0.17/lib/HTTP/Proxy.pm
+
+
+
+
+
+http://search.cpan.org/src/BEHROOZI/IO-Socket-SSL-0.97/SSL.pm
+http://search.cpan.org/~flora/Net_SSLeay.pm-1.30/SSLeay.pm
+http://search.cpan.org/~salva/LWP-Protocol-sftp-0.01/lib/LWP/Protocol/sftp.pm
+
+
+http://search.cpan.org/~marclang/ParallelUserAgent-2.57/lib/LWP/Parallel.pm
+
+media type:
+use LWP::MediaTypes qw(guess_media_type media_suffix);
+
+
+komplexes ithread modell mit shared memory:
+ - ithread für das errechnen der metakeys / htm2text / text2xml / usw
+- teilen sich einen shared memory raum - mit gleichen variabeln usw
+
+
+http://search.cpan.org/src/DLUX/Parallel-ForkManager-0.7.5/ForkManager.pm
+http://search.cpan.org/~marclang/ParallelUserAgent-2.57/lib/LWP/Parallel.pm
+
+
+unless defined @links {
+
+
+#    for ($i=0;$i<=MAX_HTTP_THREADS;$++){
+    for ($i=0; $i<= MAX_HTT_THREAD - %thread{'count'}; $++){
+        my $link = shift @links;
+        worker($link);    # subroutine, die thread startet
+        # markiere falg, dass ein thread am laufen ist
+        %threads{'working'} = \$worker($link);
+        %threads{'count'}     =  %threads{'count'} + 1 ;
+    };
+
+
+interessantes:
+
+mod_backhand
+mod_bandwidth
+
+http://www.snert.com/Software/mod_throttle/
+http://www.cohprog.com/mod_bandwidth.html
+http://www.backhand.org/mod_backhand/
+http://www.linux-ha.org/
+http://www.stanford.edu/~riepel/lbnamed/
+http://search.cpan.org/~ilyam/HTTP-WebTest-2.04/lib/HTTP/WebTest.pm
+
+
+sub td { my $cell = shift; return "<td>$cell</td>"; } ist langsamer als sub td { return "<td>@_</td>"; }
+
+
+With GTop, if we want to print the memory size of the current process we'd just execute:
+
+use GTop ( );
+print GTop->new->proc_mem($$)->size;
+
+- <META HTTP-EQUIV="refresh" CONTENT="0;url=mailto:bigolbush@whitehouse.com?subject=Free laughs&body=Go check it out!!! http%3a%2f%2fwww.fthe.net/">
+- http://ha.ckers.org/xss.html
+- http://www.lucidity.com/LucidDreamingFAQ2.html
+
+
+- zoozle4:
+ - require all words as sourceforge.net
+ - fulltextsuche:
+  der query wie bis jetzt nur dass man diesmal nach relevanz ordnen läßt und sagt:
+- wenn der weiterbutton nicht geklickt wurde tue normalen sql wuery
+     sonst:
+        suche alle vorkommnisse aber nur für die einträge 11 bis 20, wenn seite 1
+
+
+ideensammlung für spider
+
+- der client, der spidert, eröffnet selbst einen server  und stellt , während er scannt die ergebnisse als xml stream da, sodass man sich auf diesen client-server-spider hin verbinden kann und gleich ergebnisse bekommt
+
+- speedrelated sachen nicht objektorientiert prograammieren
+http://search.cpan.org/author/BIGJ/Lingua-DE-ASCII-0.11/ASCII.pm
+http://search.cpan.org/~kilinrax/HTML-Strip-1.04/
+
+SERVER:
+
+- http://search.cpan.org/dist/Net-Server/
+
+Encryption:
+- Saltgeneration: http://search.cpan.org/src/HACHI/Crypt-Salt-0.01/lib/Crypt/Salt.pm
+- http://www.truecrypt.org/downloads.php
+- http://sourceforge.net/projects/rinecrypt
+- http://sourceforge.net/projects/rijndog
+- http://bcrypt.sourceforge.net/
+    # requrements windows:  http://prdownloads.sourceforge.net/gnuwin32/zlib-1.1.4-bin.zip?download
+- http://sourceforge.net/projects/ccrypt
+- http://ccrypt.sourceforge.net/--> wahl fällt hierrauf , ist am schnellsten, pipt
+
+CRC: 
+- http://search.cpan.org/src/OLIMAUL/Digest-CRC-0.09/lib/Digest/CRC.pm
+
+
+MEMORY:
+
+sub _freeMemory {
+    my $arrayref = shift;
+    eval {
+        foreach (@{arrayref}){
+            undef;
+        };
+        undef @{arrayref};
+        undef $arrayref;
+    };   
+    return @! ? 1;    # gib fehler oder 1 für success zurück
+};
+
+
+SECURITY:
+
+-  sub _checkInputLenght() {
+    security funktion, die prüfen, wie lange eine (user input) string ist
+
+       if ( input > MAX_STRING_LENGTH) {
+       
+        if ( isset( STRIKQUOTE ) ) {
+            return _striceQuote(_chopMaxLenght( input, MAX_STRING_LENGTH ));
+        } elsif ( isset( STRIKQUOTE ) ) AND isset( USERDEFINDEDQUOTE ) ) {
+            return _userdefinedQuote( _striceQuote( _chopMaxLenght( input, MAX_STRING_LENGTH )));
+        } elsif ( isset( USERDEFINDEDQUOTE ) ){
+            return _userdefinedQuote( _chopMaxLenght( input ) );
+        } else {
+            return _striceQuote(_chopMaxLenght( input, MAX_STRING_LENGTH ));
+        }
+
+    } else {
+       
+        if ( isset( STRIKQUOTE ) ) {
+            return _striceQuote( input, MAX_STRING_LENGTH ));
+        } elsif ( isset( STRIKQUOTE ) ) AND isset( USERDEFINDEDQUOTE ) ) {
+            return _userdefinedQuote( _striceQuote( input, MAX_STRING_LENGTH ));
+        } elsif ( isset( USERDEFINDEDQUOTE ) ){
+            return _userdefinedQuote( input );
+        } else {
+            return _striceQuote( input, MAX_STRING_LENGTH );
+        }
+   
+    }
+} # sub _checkInputLenght() {}
+ 
+
+ sub _striceQuote() {
+   
+    - quotingfunktion aus zoozle4 übernehmen
+  }
+
+  sub _userdefinedQuote(){
+    - predefined werte, die automatisch entschärft werden  
+  };
+
+ sub _chopMaxLenght(){
+    chop until MAX_STRING_LENGTH;
+ };
+
+CACHING:
+
+- memory();
+- http://search.cpan.org/src/MILLAWAY/Cache-FastMemoryCache-0.01/FastMemoryCache.pm
+
+TEMPORÄRE DATEIEN:
+
+- use File::Temp;
+
+#########################################################
+
+forking und im cild externes programm aufrufen:
+
+Example 10-21. proper_fork_exec.pl
+use strict;
+use POSIX 'setsid';
+use Apache::SubProcess;
+$ENV{'PATH'} = '/bin:/usr/bin';
+delete @ENV{'IFS', 'CDPATH', 'ENV', 'BASH_ENV'};
+my $r = shift;
+$r->send_http_header("text/html");
+$SIG{CHLD} = 'IGNORE';
+defined (my $kid = fork) or die "Cannot fork: $!\n";
+if ($kid) {
+print "Parent has finished, kid's PID: $kid\n";
+}
+else {
+$r->cleanup_for_exec( ); # untie the socket
+chdir '/' or die "Can't chdir to /: $!";
+open STDIN, '/dev/null' or die "Can't read /dev/null: $!";
+open STDOUT, '>/dev/null' or die "Can't write to /dev/null: $!";
+open STDERR, '>&STDOUT' or die "Can't dup stdout: $!";
+setsid or die "Can't start a new session: $!";
+system "/home/httpd/perl/external.pl" or die "Cannot execute exec: $!";
+exit(0);
+}
+
+########################################
+
+If the external program is written in Perl, you can pass complicated data stuctures to it using one of the methods to
+serialize and then restore Perl data. The Storable and FreezeThaw modules come in handy. Let's say that we have
+a program called master.pl (Example 10-22) calling another program called slave.pl (Example 10-23).
+Example 10-22. master.pl
+# we are within the mod_perl code
+use Storable ( );
+my @params = (foo => 1, bar => 2);
+my $params = Storable::freeze(\@params);
+exec "./slave.pl", $params or die "Cannot execute exec: $!";
+Example 10-23. slave.pl
+#!/usr/bin/perl -w
+use Storable ( );
+my @params = @ARGV ? @{ Storable::thaw(shift)||[ ] } : ( );
+
+
+#########################################################################
+
+perl:
+ - mod_perl2
+ - http://perldoc.perl.org/perlembed.html
+ - perl gibt speicher einer variabel/array/hash erst dann frei, wenn diese explizit mit undef $var geköpft wurde
+
+
+php:
+ - speed optimizer / Zend engine
+
+mysql:
+ - caching einstellen
+ - Verwendung von HEAP-Tables http://www.mysql.com/doc/H/E/HEAP.html
+ - Verwendung von Replikationsmechanismus http://www.mysql.com/doc/R/e/Replication.html
+
+
+apache2:
+ - mod_mmap_static() - Modul liest webseiten in den hauptspeicher; somit wird ein ständiges öffnen/schließen der
+     ressourcen auf dem webserver verhindert
+ - mod_gzip bei großen seiten; alles < 50Kb ohne gzip ausliefern
+
+Caching:
+ - squid-cache.org
+
+
+
+programm entwerfen, dass einen http-request in einen nemesis request umwandelt und umgekehrt
+-> todos: nemesis modul in perl
+

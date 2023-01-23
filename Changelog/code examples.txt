@@ -1,0 +1,56 @@
+
+finding urls: 
+
+In the process of finding URLs without the help of LWP, one would have to do
+something like this:
+	$data =~ s/<([^>]*)>//;
+	$in_brackets=$1;
+	$key='a';
+	$tag='href';
+		if ($in_brackets =~ /^\s*$key\s+/i) { # if tag matches, try parms
+		if ($in_brackets =~ /\s+$tag\s*=\s*"([^"]*)"/i) {
+		$link=$1;
+		$link =~ s/[\n\r]//g; # kill newlines,returns anywhere in url
+		# process the URL here
+	}
+}
+
+
+sub dir_walk { 
+
+	my ($top, $code) = @_;
+	my $DIR;
+	$code->($top);
+	if (-d $top) {
+		my $file;
+		unless (opendir $DIR, $top) {
+		warn "Couldn’t open directory $top: $!; skipping.\n";
+		return;
+	}
+
+	while ($file = readdir $DIR) {
+		next if $file eq '.' || $file eq '..';
+		dir_walk("$top/$file", $code);
+	}
+	}
+}
+
+abfangen – beispielsweise durch OR-Verknüpfung zweiter Pattern-Matching-
+Ausdrücke:
+if( ($_ =~ m/Madeleine Smith/) || ($_ =~ m/Madeline Smith/))
+	Besser und einfacher ist es allerdings, beide alternativen Schreibweisen in
+	einem Ausdruck anzugeben.
+	Alternativen werden mit dem Metazeichen | angegeben. Im einfachsten
+	Fall gibt man die Alternativen vollständig an.
+if( $_ =~ m/Madeleine Smith|Madeline Smith/ )
+	Wenn die alternativen Suchbegriffe größtenteils übereinstimmen, kann man
+	sich Tipparbeit ersparen, indem man nur die wirklich unterschiedlichen Zeichenfolgen
+	angibt – diese dann aber in runde Klammern setzt.
+if( $_ =~ m/Madel(ei|i)ne/ )
+	Das i kann man sogar auch noch streichen; Perl fasst eine leere Alternative
+	automatisch als »kein Zeichen« auf.
+if( $_ =~ m/Madel(e|)ine Smith/ )
+	Selbstverständlich erlaubt Perl auch die Angabe mehrerer Alternativen. So
+	könnte man im Beispiel neben der französischen und englischen auch noch
+	die amerikanische Schreibweise (Madelain) abfangen:
+if( $_ =~ m/Madel(eine|ine|ain) Smith/ )

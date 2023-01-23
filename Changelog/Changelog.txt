@@ -1,0 +1,215 @@
+
+ ###########################################################################################################################
+ ################################### TODO				##################################################
+ ###########################################################################################################################
+
+- port range einstellbar machen!!!! 
+- query server programmieren und in spider integrieren	(35h)
+- easymirror support so einstellen, das der hostname automatisch geholt wird und in easymirror.cfg eingetragen wird
+- grafisches frontend mit Perl::TK; programmieren   (25h)
+- use Memoize; 
+  memoize 'fib';	# memorize &fib();
+  { bringt nur was, wenn man oft mit zahlen/werten hantiert }
+- testen ob, eine seite schon gescannt wurde: mit hilfe einer externen datei -> rest ist zu unzuverlässig
+
+ ###########################################################################################################################
+ ################################### Changelog                                   ###########################################
+ ###########################################################################################################################
+
+- Arbeitszeit bis jetzt: 630 h
+
+25.07.2005:
+- erster versuch der realisierung von object oriented programming in perl
+- Easyspider.pm enthält erste wichtige Routinen 
+- easyspider.cfg enthält alle parameter aus konzept 0.3
+- easyspider.pl benutzt modul Easyspider.pm um erste objekte zu generieren und gibt content der url wieder 
+
+26.07.2005:
+- Linkextractor (extrahiere alle http links aus datenstrom)
+- dateityp bestimmmung der url (einfache version, noch nicht final)
+- metakeys, title extrahieren
+- body und head extrahieren (als html/ als text)
+- verzeichnistiefe bestimmung der url (einfache version, wenn mir nix besseres mehr einfällt bleibt es so)
+
+28.07.2005:
+- linktiefe scan implementiert (mit unterscheidung ob externe links folgen oder nicht )
+
+02.08.2005:
+ - TODO: linktiefe scanner mittels fork realisieren
+ - linktiefe scanner mittels fork funktioniert nur unter linux
+ - windows version des spider scannt nur sequentiell -> keine funktionierende andere lösung
+ 
+09.08.2005
+ - Linktiefe scanner routinen abgeschlossen und in finaler version
+ - windows: nur sequentiell scannen
+ - linux: sequentiell und multithreading
+ - Implmentiert, das dateien lokal gespeichert werden, neben dem scannen - Funktionalität liegt in Routine: CLIENT_get_links
+ - verzeichnisstrukturen werden beim lokalen speichern berücksichtiget
+ 
+ 10.08.2005
+ - Easyspider.pm -> &get_links(): frame support, realativ zu absolute fix eingebaut
+ - entfernt: threads aus config und Easyspider.pm
+ - linktiefe_scanner mittels fork vorerst nicht benutzen, kann in art dos ausarten, erst noch begrenzung einbauen!
+ 
+ 11.08.2005
+ - Entscheidung multihtreading support erst für spätere versionen anzubieten- code zu fehleranfällig -> multhitreading code entfernt
+ - Einbau des Language Flags, Meldungen werden dem Flag entsprechend in dieser Landessprache ausgegeben
+ - Eingebaut, dass programm sich beendet, wenn mehr als in der Config angegebene Seiten gescannt wurden
+ - TODO: abfrage einbauen, die a.)anzeigt, wieviel links gescannt wurden und fragt, ob trotz der grenze weitergescannt werden soll 
+ 	-> was meint der rest dazu? (problem gibts nur wenn später alles automatisch ablaufen soll, dann ist das eine bremse )
+ - Geplant: Parser Modul das XX nach ascii portiert, welche files sollen wie portiert werden? / soll dies in memory oder via file passieren
+
+16.08.2005:
+- integriert pdf to text (Module: Spider::Parser.pm)
+- integriert doc to text
+- TODO: installer schreiben der die benötigten programme zum convertieren von doc/pdf installiert (dies für linux und windows seperat)
+- Linux test bei umwandlung von pdf / doc -> text funktioniert
+
+18.08.2005:
+- optimierungsversuch am spider
+
+24.08.2005:
+- vollständig kommentiert
+
+27.08.2005:
+- anpassung der Parser.pm und Easyspider.pm sodass die gemachten einstellungen in easyspider.cfg übernommen werden
+- Easyspider paket für asim auf windows angepasst
+
+28.08.2005:
+- xls to text parser eingebaut
+- ppt to text parser eingebaut
+- rtf to text parser eingebaut
+- test aller parser unter windows erfolgreich
+
+22.09.2005:
+ - scanlist und blacklist support eingebaut: hauptfunktionen befinden sind in der routine linktiefe_scanner()
+
+16.10.2005:
+ - whitelist support eingebaut
+ - html_to_ascii_parser() leicht modifiziert
+
+17.10.2005:
+ - code cleanup
+ - region tag support eingebaut
+
+18.10.2005:
+ - html parser geschrieben
+ - neuer htmlparser in spider integriet
+ - output funktion für text geschrieben und integriert (not tested)
+
+19.10.2005:
+ - output funktionen entfernt und black/white und scanlist entfernt -> buggy 
+
+ 26.10.2005:
+ - verzeichnistiefe/pfadtiefe implementiert
+
+ 27.10: 
+ - Spider::Compression fertiggestellt (packen/entpacken von dateien)
+ - erste funktionierende Version der Client/Server Modells für den Spider
+
+ 28.10:
+ - C/S Modell für EasySpider erweitert
+ - Client modell als OO-Perl umgesetzt
+
+ 29.10.2005:
+ - HtmlParser umgeschrieben, referenzbasierende werteübergabe
+ - erste Version des EasySpider Servers als OO-Perl
+
+ 30.10.2005:
+ - HtmlParser.pl im Verzeichnis modules/Spider ist nun finale Htmlparser, objektorientiert hat es nicht richtig funktioniert
+ - Compression.pm = zuständig für das komprimieren der daten mit rar
+ - Client.pm = clientfunktionen zum austauschen von daten mittels tcp server   ; clientfunktionen
+ - Server.pm = serverfunktionen zum austauschen von informationen mittels tcp ; serverfunktionen
+ - ResultParser.pm: zuständig für das erstellen der outputdateien in txt, sql, xml
+ - ResultParser.pm: output generator für txt und xml erstellt / basierend auf template : bisher nur xml
+ - Client / Server modell für Easyspider funktionsfähig / implementiert in OO-Perl
+
+ 31.10.2005:
+
+ - HtmlParser.pl angepasst: Algorithmus zum umwandeln des Inhaltes des Strings $content in formatierten Text, Zeilenumbrüche bei . ! ? 
+ - alpha version des servers: EasySpiderTCPServer.pl mit grundlegensten funktionen implementiert
+ - EasySpiderTCPServer.pl: scanlist support eingebaut, liest aus scanlist und markiert den eintrag anschließend als WORKING
+
+ 01.11.2005:
+ - Parser.pm angepasst - jetzt mit referenzen programmiert -> speicherschonender
+
+ 02.11.2005:
+ - is_filetype(): verbessert
+ - HtmlParser.pl: leicht verbessert!
+
+ 03.11.2005:
+ - Funktion, die vor beginn testet, ob alle Verzeichnisse bestehen, und ob alle externen Programme exsistieren	: erledigt
+ - Funktion, die vor beginn alle wichtigen output verzeichnisse erstellt : erledigt
+ - todo: htmlparser.pl anpassen, dass nach 80 zeichen automatisch ein zeilenumbruch kommt
+
+ 04.11.2005:
+ 
+ - Parser.pm - alle Funktionen angepasst auf Referenzen und auf Funktionalität unter Windows erfolgreich getestet
+ - erste versuch der reübertragung bei falscher CRC Prüfsumme
+
+ 04.11.2005: 
+ - MILESTONE: CRC CHECK EINGEBAUT - BEI FEHLERHAFTER ÜBERTRAGUNG -> NEUÜBERTRAGUNG
+
+ 07.11.2005:
+ - server entpackt empfangene daten in das Verzeichnis, das in der server config unter STOREPATH angegeben wurde
+
+ 10.11.2005:
+ - minor code cleanup
+
+ 18.11.2005:
+ - code zum entfernen doppelter einträge eingebaut: nocht nicht getestet
+ "	push (@working_links, @$LINK_ARRAYREF_SUB);
+	my @tmp = @working_links;
+	undef @working_links;
+	@working_links = sort keys %{ { map { $_, 1 } @tmp } };
+	undef @tmp;
+"
+
+09.02.2006:
+
+- code zum entfernen doppelter einträge siehe oben - entfernt
+- einfache robotrules parser eingebaut: WWW::RobotRules
+- es werden keine doppelten einträge mehr gescannt -> jedoch bei vielen gescannten einträgen wir speicherverbrauch größer!!! (eventuell alles in ein file auslagern)
+
+24.02.2006:
+
+- xml writer eingebaut
+
+26.02.2006:
+
+- major code cleanup ( 5h ) results:
+	- deutlich schnellerer scannen
+	- übersichtlicherer code
+
+27.02.2006:
+
+- rss parser eingebaut
+- test aller vorhandener parser
+- angefangen den config parser auszulagern -> Spider::Config und aus EasySpider.pm ausgelagert
+- crypt::ssleay für windows / linux installieren dann klappt https support 
+- https für windows: http://johnbokma.com/perl/https.html
+
+28.02.2006:
+
+- funktion mit der geprüft wird, ob $tmp_url ein http, https oder ftp link ist, wenn nicht wird http vorgesetzt
+- ParseXML: xml parser eingebaut und getestet
+
+2.3.2006:
+
+- bugfixing
+- einstellung ob robots.txt beachtet werden soll oder nicht
+- proxy support beim scannen eingebaut ( noch nicht getestet )
+
+3.3.2006:
+
+- if ( lc( $OS ) eq "linux" ) {} - als standartauswahl für das OS eingefügt
+
+########################################
+
+- todo:  + parsen der config file aus dem modul easyspider.pm/server.pm auslagern
+	 
+############
+### zusammenfassung
+############
+
+Noch ca 5-10h arbeit am spider und die version 1 liegt vor
