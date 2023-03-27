@@ -10,7 +10,7 @@ https://www.unaique.net/en/ - CopyWriting: Generator for Marketing Content by AI
 https://www.unaique.com/ - UNAIQUE.COM<br>
 https://rechthaben.net/ - Recht Haben | RechtHaben.net<br>
 https://www.artikelschreiber.com/status/ - ArtikelSchreiber.com Changelog and Status Information<br>
-<a href="https://www.artikelschreiben.com/">Artikel schreiben mit ChatGPT KI | ArtikelSchreiben.com</a><br>
+<a href="https://www.artikelschreiben.com/" rel="follow">Artikel schreiben mit ChatGPT KI | ArtikelSchreiben.com</a><br>
 http://artikelschreiber.net/<br> 
 http://unaique.de/<br> 
 http://unaique.org/<br>
