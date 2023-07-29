@@ -15,3 +15,7 @@ https://www.artikelschreiber.com/status/ - ArtikelSchreiber.com Changelog and St
 http://artikelschreiber.net/<br> 
 http://unaique.de/<br> 
 http://unaique.org/<br>
+https://www.artikelschreiber.com/status/ - ArtikelSchreiber.com Changelog and Status Information
+https://linktr.ee/laurafaye
+https://www.patreon.com/LauraFaye
+https://www.laurafayeoracle.com/
